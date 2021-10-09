@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { createInterface } = require('readline');
 
 const reverseStr = (str = '') => {
     str = typeof str === 'string' ? str : str.toString();
@@ -6,25 +6,21 @@ const reverseStr = (str = '') => {
 };
 
 const task1 = async () => {
-    const subProccess = spawn('node');
-
-    subProccess.stdout.pipe(process.stdout, { end: false });
-
-    process.stdin.resume();
-    process.stdin.on('data', reverseStr).pipe(subProccess.stdin, { end: false });
+    process.stdin.on('data', reverseStr).pipe(process.stdin, { end: false });
 };
 
+// Variant #2:
+
 // const task1 = async () => {
-//     const readline = createInterface({
+//     const rl = createInterface({
 //         input: process.stdin,
-//         output: process.stdout,
 //     });
 
-//     readline.on('line', reverseStr);
+//     rl.on('line', reverseStr);
 
-//     readline.on('SIGINT', () => {
+//     rl.on('SIGINT', () => {
 //         console.log('Done');
-//         readline.close();
+//         rl.close();
 //     });
 // };
 
